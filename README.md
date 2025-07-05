@@ -1,73 +1,225 @@
-# Welcome to your Lovable project
 
-## Project info
+# Time Tapestry Tasks
 
-**URL**: https://lovable.dev/projects/5adc9bde-5e8f-4099-89b7-dc7f83c113a3
+A beautiful, time-based task management application that helps you organize your day into meaningful periods like Morning, Afternoon, Evening, and Night. Built with React, TypeScript, and modern UI components.
 
-## How can I edit this code?
+**This project is a part of a hackathon run by https://www.katomaran.com**
 
-There are several ways of editing your application.
+## Features
 
-**Use Lovable**
+### 🌅 Time-Based Organization
+- Pre-defined periods: Morning, Afternoon, Evening, Night
+- Add custom periods to match your unique schedule
+- Visual period cards with emojis and color coding
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/5adc9bde-5e8f-4099-89b7-dc7f83c113a3) and start prompting.
+### 📝 Complete Task Management  
+- Create, read, update, and delete tasks
+- Rich task details: title, description, due dates, emojis
+- Mark tasks as complete/incomplete
+- Drag and drop tasks between periods
 
-Changes made via Lovable will be committed automatically to this repo.
+### 🎨 Enhanced User Experience
+- Emoji picker for personalizing tasks
+- Smooth animations for all interactions
+- Responsive design for all devices
+- Clean, modern interface with gradients and glassmorphism
 
-**Use your preferred IDE**
+### 📊 Analytics & Insights
+- Daily activity tracking
+- Period-based productivity metrics
+- Most used emojis statistics
+- Completion rate tracking
+- Visual progress indicators
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 📅 Calendar Integration
+- Interactive calendar view
+- Daily activity visualization
+- Historical task data
+- Date-based task filtering
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 💾 Data Persistence
+- Local storage for offline functionality
+- Session-based task management
+- Automatic data synchronization
 
-Follow these steps:
+## Architecture Overview
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+```
+┌─────────────────────────────────────────┐
+│                Frontend                 │
+│              (React + TS)               │
+├─────────────────────────────────────────┤
+│  Components Layer                       │
+│  ├── TaskCard                          │
+│  ├── PeriodColumn                      │
+│  ├── CalendarView                      │
+│  ├── Analytics                         │
+│  └── EmojiPicker                       │
+├─────────────────────────────────────────┤
+│  State Management                       │
+│  ├── Local Storage Hook                │
+│  ├── Period Management                  │
+│  └── Task CRUD Operations               │
+├─────────────────────────────────────────┤
+│  UI Framework                           │
+│  ├── Shadcn/ui Components              │
+│  ├── Tailwind CSS                      │
+│  └── Lucide Icons                      │
+└─────────────────────────────────────────┘
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+┌─────────────────────────────────────────┐
+│              Data Flow                  │
+├─────────────────────────────────────────┤
+│  User Interaction                       │
+│         ↓                               │
+│  Component Event Handler                │
+│         ↓                               │
+│  State Update (useState)                │
+│         ↓                               │
+│  Local Storage Sync                     │
+│         ↓                               │
+│  UI Re-render                           │
+└─────────────────────────────────────────┘
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Technology Stack
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### Frontend
+- **React 18** - Modern React with hooks
+- **TypeScript** - Type safety and better development experience
+- **Vite** - Fast build tool and development server
+- **Tailwind CSS** - Utility-first CSS framework
+- **Shadcn/ui** - Beautiful, accessible UI components
+
+### State Management
+- **React Hooks** - useState, useEffect for local state
+- **Custom Hooks** - useLocalStorage for data persistence
+- **Local Storage** - Browser-based data persistence
+
+### UI/UX Libraries
+- **Lucide React** - Beautiful, consistent icons
+- **date-fns** - Modern date utility library
+- **React Hook Form** - Form handling and validation
+- **Sonner** - Toast notifications
+
+## Key Assumptions
+
+Based on the requirements, I've made the following assumptions:
+
+1. **Local Storage Approach**: Since the scope mentions session-based storage, I implemented local storage for data persistence instead of requiring a backend database.
+
+2. **Social Login Simplification**: While Google authentication was mentioned, I focused on the core task management features first. Authentication can be added as an enhancement.
+
+3. **Period Flexibility**: Beyond the four main periods, users can add custom periods to accommodate different schedules (work shifts, study sessions, etc.).
+
+4. **Task Categories**: Tasks are organized by time periods rather than traditional categories, promoting time-aware productivity.
+
+5. **Analytics Scope**: Built comprehensive analytics including daily summaries, period activity, and usage patterns to provide meaningful insights.
+
+6. **Mobile-First Design**: Implemented responsive design assuming users will access the app across different devices.
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn package manager
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd time-tapestry-tasks
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+4. Open your browser and navigate to `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Building for Production
 
-**Use GitHub Codespaces**
+```bash
+npm run build
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+The built files will be in the `dist` directory.
 
-## What technologies are used for this project?
+## Usage Guide
 
-This project is built with:
+### Creating Tasks
+1. Click the "Add Task" button in any period column
+2. Fill in task details (title, description, emoji, due date)
+3. Save the task
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Managing Tasks
+- **Complete**: Click the checkbox next to any task
+- **Move**: Drag and drop tasks between different periods  
+- **Delete**: Click the trash icon on any task
+- **Edit**: (Feature ready for implementation)
 
-## How can I deploy this project?
+### Viewing Analytics
+1. Switch to the "Analytics" tab
+2. View overall statistics and period performance
+3. Check most used emojis and completion rates
 
-Simply open [Lovable](https://lovable.dev/projects/5adc9bde-5e8f-4099-89b7-dc7f83c113a3) and click on Share -> Publish.
+### Calendar View
+1. Switch to the "Calendar" tab
+2. Click on any date to see daily activity
+3. Dates with tasks are highlighted
 
-## Can I connect a custom domain to my Lovable project?
+## Project Structure
 
-Yes, you can!
+```
+src/
+├── components/          # Reusable UI components
+│   ├── TaskCard.tsx    # Individual task display
+│   ├── PeriodColumn.tsx # Period container with tasks
+│   ├── TaskDialog.tsx  # Task creation/editing modal
+│   ├── CalendarView.tsx # Calendar interface
+│   ├── Analytics.tsx   # Statistics and insights
+│   └── EmojiPicker.tsx # Emoji selection component
+├── hooks/              # Custom React hooks
+│   └── useLocalStorage.ts # Local storage management
+├── types/              # TypeScript type definitions
+│   └── index.ts       # Core application types
+├── pages/              # Main application pages
+│   └── Index.tsx      # Primary application interface
+└── lib/                # Utility functions
+    └── utils.ts       # Common helper functions
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Future Enhancements
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- Google OAuth integration
+- Backend API with Flask/Python
+- Real-time collaboration
+- Task templates and recurring tasks
+- Advanced filtering and search
+- Export/import functionality
+- Dark mode theme
+- Mobile app version
+- Team/shared workspaces
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+Built with ❤️ for the Katomaran Hackathon
