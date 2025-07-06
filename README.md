@@ -5,6 +5,8 @@ A beautiful, time-based task management application that helps you organize your
 
 **This project is a part of a hackathon run by https://www.katomaran.com**
 
+[Click here to watch the demo video of app](https://github.com/Anjana-0/time-tapestry-tasks/blob/main/Screen%20Recording%202025-07-06%20140753%20(1).mp4)
+
 ## Features
 
 ### 🌅 Time-Based Organization
@@ -221,5 +223,7 @@ src/
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ---
+
+**This project is a part of a hackathon run by https://www.katomaran.com**
 
 Built with ❤️ for the Katomaran Hackathon
