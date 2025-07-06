@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
@@ -9,6 +8,7 @@ import { TaskDialog } from '@/components/TaskDialog';
 import { CalendarView } from '@/components/CalendarView';
 import { Analytics } from '@/components/Analytics';
 import { EmojiPicker } from '@/components/EmojiPicker';
+import { LoginScreen, UserMenu, useAuth } from '@/components/AuthProvider';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { Period, Task, DayAnalytics } from '@/types';
 import { format, startOfDay, isSameDay } from 'date-fns';
@@ -23,6 +23,25 @@ const defaultPeriods: Period[] = [
 ];
 
 const Index = () => {
+  const { user, loading } = useAuth();
+  
+  // Show login screen if not authenticated
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <LoginScreen />;
+  }
+
+  return <AuthenticatedApp />;
+};
+
+const AuthenticatedApp = () => {
   const [periods, setPeriods] = useLocalStorage<Period[]>('todo-periods', defaultPeriods);
   const [analytics, setAnalytics] = useLocalStorage<DayAnalytics[]>('todo-analytics', []);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -33,7 +52,6 @@ const Index = () => {
   const [newPeriodEmoji, setNewPeriodEmoji] = useState('');
   const [draggedTask, setDraggedTask] = useState<Task | null>(null);
 
-  // Generate daily analytics
   const generateAnalytics = (periodsData: Period[]) => {
     const today = format(startOfDay(new Date()), 'yyyy-MM-dd');
     const todayTasks = periodsData.flatMap(p => p.tasks);
@@ -143,16 +161,13 @@ const Index = () => {
     
     if (!draggedTask) return;
 
-    // Remove task from source period and add to target period
     setPeriods(prev => prev.map(period => {
       if (period.tasks.some(task => task.id === draggedTask.id)) {
-        // Source period - remove task
         return {
           ...period,
           tasks: period.tasks.filter(task => task.id !== draggedTask.id)
         };
       } else if (period.id === targetPeriodId) {
-        // Target period - add task
         return {
           ...period,
           tasks: [...period.tasks, { ...draggedTask, period: targetPeriodId }]
@@ -229,14 +244,17 @@ const Index = () => {
               </h1>
               <p className="text-gray-600 mt-2">Organize your day, one moment at a time</p>
             </div>
-            <Button
-              onClick={() => setNewPeriodDialogOpen(true)}
-              variant="outline"
-              className="flex items-center gap-2"
-            >
-              <Settings className="w-4 h-4" />
-              Add Period
-            </Button>
+            <div className="flex items-center gap-4">
+              <Button
+                onClick={() => setNewPeriodDialogOpen(true)}
+                variant="outline"
+                className="flex items-center gap-2"
+              >
+                <Settings className="w-4 h-4" />
+                Add Period
+              </Button>
+              <UserMenu />
+            </div>
           </div>
 
           {/* Daily Summary */}
